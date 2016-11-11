@@ -63,7 +63,7 @@ public class CrimeListFragment extends Fragment{
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
         //getQuantityString()用于plurals的加载
-        String subtitle = getResources().getQuantityString(R.plurals.subtitle_format,crimeCount);
+        String subtitle = getResources().getQuantityString(R.plurals.subtitle_format,crimeCount,crimeCount);
 
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);

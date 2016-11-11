@@ -100,8 +100,8 @@ public class CrimeLab {
         mDatabase.insert(CrimeTable.NAME,null,values);
     }
 
-    public void deleteCrime(UUID id){
-        String uuidString = id.toString();
+    public void deleteCrime(Crime crime){
+        String uuidString = crime.getId().toString();
         mDatabase.delete(CrimeTable.NAME,
                 CrimeTable.Cols.UUID + "= ?",
                 new String[] {uuidString});

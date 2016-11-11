@@ -77,7 +77,7 @@ public class CrimeFragment extends Fragment {
 
     private void deleteCrime() {
         CrimeLab mCrimes = CrimeLab.get(getActivity());
-        mCrimes.deleteCrime(mCrime.getId());
+        mCrimes.deleteCrime(mCrime);
         getActivity().finish();
     }
 
