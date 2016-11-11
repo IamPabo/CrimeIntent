@@ -51,11 +51,25 @@ public class CrimeLab {
         }finally {
             cursor.close();
         }
-        return  new ArrayList<>();
+        return  crimes;
     }
 
     public Crime getCrime(UUID id){
-        return null;
+        CrimeCursorWrapper cursor = queryCrimes(
+                CrimeTable.Cols.UUID + " = ?",
+                new String[] {id.toString()}
+        );
+
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getCrime();
+        }finally {
+            cursor.close();
+        }
     }
 
     public void updateCrime(Crime crime){
@@ -87,7 +101,10 @@ public class CrimeLab {
     }
 
     public void deleteCrime(UUID id){
-
+        String uuidString = id.toString();
+        mDatabase.delete(CrimeTable.NAME,
+                CrimeTable.Cols.UUID + "= ?",
+                new String[] {uuidString});
     }
 
     private static ContentValues getContentValues(Crime crime){
