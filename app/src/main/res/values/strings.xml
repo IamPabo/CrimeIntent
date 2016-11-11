@@ -8,5 +8,11 @@
     <string name="new_crime">New Crime</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
-    <string name="subtitle_format">%1$s crimes</string>
+    <string name="delete_subtitle">Delete Subtitle</string>
+
+    <!-- plurals：复数 一个和多个后缀不一样用plurals分开单复数 %s String %d 整数 %f 浮点数-->
+    <plurals name="subtitle_format">
+        <item quantity="one">%1$s crime</item>
+        <item quantity="other">%1$s crimes</item>
+    </plurals>
 </resources>

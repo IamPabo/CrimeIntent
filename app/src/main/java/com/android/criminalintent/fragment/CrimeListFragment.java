@@ -33,6 +33,7 @@ public class CrimeListFragment extends Fragment{
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private View mEmptyView;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -61,7 +62,8 @@ public class CrimeListFragment extends Fragment{
     private void updateSubtitle(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
-        String subtitle = getString(R.string.subtitle_format,crimeCount);
+        //getQuantityString()用于plurals的加载
+        String subtitle = getResources().getQuantityString(R.plurals.subtitle_format,crimeCount);
 
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
@@ -75,6 +77,7 @@ public class CrimeListFragment extends Fragment{
 
         mCrimeRecyclerView = (RecyclerView)view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mEmptyView = view.findViewById(R.id.crime_list_empty_view);
 
         updateUI();
         return view;
@@ -95,7 +98,11 @@ public class CrimeListFragment extends Fragment{
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
-
+        mEmptyView.setVisibility(View.GONE);
+        if(crimes.size() <= 0){
+            mEmptyView.setVisibility(View.VISIBLE);
+            return;
+        }
         if(mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
